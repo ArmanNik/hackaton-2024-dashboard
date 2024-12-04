@@ -23,11 +23,13 @@
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
 		"lucide-svelte": "^0.462.0",
+		"mode-watcher": "^0.5.0",
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
 		"prettier-plugin-tailwindcss": "^0.6.5",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
+		"svelte-sonner": "^0.3.28",
 		"tailwind-merge": "^2.5.5",
 		"tailwind-variants": "^0.3.0",
 		"tailwindcss": "^3.4.9",
@@ -36,8 +38,10 @@
 		"vite": "^5.0.3"
 	},
 	"dependencies": {
+		"@appwrite.io/console": "^1.4.4",
 		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/typography": "^0.5.15",
+		"appwrite": "^16.0.2",
 		"svelte-headless-table": "^0.18.3"
 	},
 	"packageManager": "pnpm@8.15.6+sha512.77b89e9be77a2b06ad8f403a19cae5e22976f61023f98ad323d5c30194958ebc02ee0a6ae5d13ee454f6134e4e8caf29a05f0b1a0e1d2b17bca6b6a1f1159f86"
