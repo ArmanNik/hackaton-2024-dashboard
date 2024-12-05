@@ -1,31 +1,19 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import { account } from '$lib/sdk';
-	import { toast } from 'svelte-sonner';
 	import google from '$lib/icons/google.svg';
 	import apple from '$lib/icons/apple.svg';
 	import github from '$lib/icons/github.svg';
-	import { ID } from 'appwrite';
-
-	let email = '';
-	let password = '';
-	async function register() {
-		try {
-			await account.create(ID.unique(), email, password);
-			await account.createEmailPasswordSession(email, password);
-
-			await goto(`${base}/dashboard/overview`);
-		} catch (e) {
-			toast.error(e.message);
-		}
-	}
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 </script>
+
+<svelte:head>
+	<title>Register</title>
+</svelte:head>
 
 <div class="mx-auto grid w-[350px] gap-6">
 	<div class="grid gap-2 text-center">
@@ -34,26 +22,32 @@
 	</div>
 	<Card.Root>
 		<Card.Content>
-			<form class="grid gap-4" on:submit|preventDefault={register}>
+			<form
+				method="post"
+				class="grid gap-4"
+				use:enhance={({ submitter }) => {
+					if (submitter) {
+						submitter.disabled = true;
+					}
+					return async ({ result, update }) => {
+						// console.log(result);
+						if (result?.type === 'error') {
+							if (submitter) {
+								submitter.disabled = false;
+							}
+							console.log(result);
+							toast.error(result.error.message);
+						}
+					};
+				}}
+			>
 				<div class="grid gap-2">
 					<Label for="email">Email</Label>
-					<Input
-						bind:value={email}
-						id="email"
-						type="email"
-						placeholder="Enter your email"
-						required
-					/>
+					<Input id="email" type="email" placeholder="Enter your email" required />
 				</div>
 				<div class="grid gap-2">
 					<Label for="password">Password</Label>
-					<Input
-						bind:value={password}
-						placeholder="Enter your password"
-						id="password"
-						type="password"
-						required
-					/>
+					<Input placeholder="Enter your password" id="password" type="password" required />
 				</div>
 				<Button type="submit" class="w-full">Sign up</Button>
 

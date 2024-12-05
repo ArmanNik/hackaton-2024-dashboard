@@ -5,6 +5,9 @@ export const client = new Client();
 
 client.setEndpoint(PUBLIC_ENDPOINT).setProject(PUBLIC_PROJECT_ID);
 
-export const account = new Account(client);
-export const databases = new Databases(client);
-export const functions = new Functions(client);
+export const sdk = {
+	client: client,
+	account: new Account(client),
+	databases: new Databases(client),
+	functions: new Functions(client)
+};

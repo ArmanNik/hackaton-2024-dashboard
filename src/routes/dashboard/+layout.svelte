@@ -19,11 +19,17 @@
 		{ name: 'Settings', href: `${base}/dashboard/settings`, Icon: Settings }
 	];
 
+	// const headerLinks = [
+	// 	{ name: 'Dashboard', href: `${base}/dashboard` },
+	// 	{ name: 'About', href: `${base}/dashboard/about` },
+	// 	{ name: 'Products', href: `${base}/dashboard/products` },
+	// 	{ name: 'Contact', href: `${base}/dashboard/contact` }
+	// ];
 	const headerLinks = [
-		{ name: 'Dashboard', href: `${base}/dashboard` },
-		{ name: 'About', href: `${base}/dashboard/about` },
-		{ name: 'Products', href: `${base}/dashboard/products` },
-		{ name: 'Contact', href: `${base}/dashboard/contact` }
+		{ name: 'Dashboard', href: '#' },
+		{ name: 'About', href: '#' },
+		{ name: 'Products', href: '#' },
+		{ name: 'Contact', href: '#' }
 	];
 </script>
 

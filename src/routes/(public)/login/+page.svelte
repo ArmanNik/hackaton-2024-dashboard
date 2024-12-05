@@ -1,28 +1,24 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
-	import { account } from '$lib/sdk';
-	import { toast } from 'svelte-sonner';
 	import google from '$lib/icons/google.svg';
 	import apple from '$lib/icons/apple.svg';
 	import github from '$lib/icons/github.svg';
+	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
+	import { base } from '$app/paths';
+	import { goto } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
 
-	let email = '';
-	let password = '';
-	async function login() {
-		try {
-			await account.createEmailPasswordSession(email, password);
-			goto(`${base}/dashboard/overview`);
-		} catch (e) {
-			toast.error(e.message);
-		}
-	}
+	let { form }: { form: ActionData } = $props();
 </script>
+
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
 
 <div class="mx-auto grid w-[350px] gap-6">
 	<div class="grid gap-2 text-center">
@@ -33,17 +29,43 @@
 	</div>
 	<Card.Root>
 		<Card.Content>
-			<form class="grid gap-4" on:submit|preventDefault={login}>
+			<form
+				method="post"
+				class="grid gap-4"
+				use:enhance={({ submitter }) => {
+					if (submitter) {
+						submitter.disabled = true;
+					}
+					return async ({ result, update }) => {
+						// console.log(result);
+						if (result?.type === 'success') {
+							await goto(`${base}/dashboard/overview`);
+						} else if (result?.type === 'error') {
+							if (submitter) {
+								submitter.disabled = false;
+							}
+							toast.error(result.error.message);
+						}
+					};
+				}}
+			>
 				<div class="grid gap-2">
 					<Label for="email">Email</Label>
-					<Input bind:value={email} id="email" type="email" placeholder="Enter email" required />
+					<Input
+						value={form?.email ?? ''}
+						id="email"
+						name="email"
+						type="email"
+						placeholder="Enter email"
+						required
+					/>
 				</div>
 				<div class="grid gap-2">
 					<Label for="password">Password</Label>
 					<Input
-						bind:value={password}
 						placeholder="Enter password"
 						id="password"
+						name="password"
 						type="password"
 						required
 					/>

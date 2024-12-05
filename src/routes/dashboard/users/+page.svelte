@@ -7,21 +7,12 @@
 	import Ellipsis from 'lucide-svelte/icons/ellipsis';
 	import Users from 'lucide-svelte/icons/users';
 
-	const users = [
-		{
-			name: 'John Doe',
-			email: 'joedoe@appwrite.io',
-			username: 'joedoe',
-			id: '123456'
-		},
-		{
-			name: 'Jane Doe',
-			email: 'janedoe@appwrite.io',
-			username: 'janedoe',
-			id: '123457'
-		}
-	];
+	let { data } = $props();
 </script>
+
+<svelte:head>
+	<title>Users</title>
+</svelte:head>
 
 <div class="flex items-center">
 	<h1 class="text-lg font-semibold md:text-2xl">Users</h1>
@@ -61,23 +52,25 @@
 <Table.Root>
 	<Table.Header>
 		<Table.Row>
-			<Table.Head class="w-[100px]">Name</Table.Head>
+			<Table.Head>Name</Table.Head>
 			<Table.Head>Email</Table.Head>
-			<Table.Head>Username</Table.Head>
+			<Table.Head>Phone</Table.Head>
 			<Table.Head>User Id</Table.Head>
-			<Table.Head class="text-right"></Table.Head>
+			<!-- <Table.Head class="text-right"></Table.Head> -->
 		</Table.Row>
 	</Table.Header>
 	<Table.Body>
-		{#each users as user, i (i)}
-			<Table.Row href={`${base}/dashboard/users/user-${user.id}`}>
+		{#each data.users.users as user, i (i)}
+			<Table.Row href={`${base}/dashboard/users/user-${user.$id}`}>
 				<Table.Cell class="font-medium">{user.name}</Table.Cell>
 				<Table.Cell>{user.email}</Table.Cell>
-				<Table.Cell>{user.username}</Table.Cell>
-				<Table.Cell>{user.id}</Table.Cell>
-				<Table.Cell class="text-right">
-					<Button size="icon" variant="ghost"><Ellipsis class="h-4 w-4" /></Button>
-				</Table.Cell>
+				<Table.Cell>{user?.phone || '-'}</Table.Cell>
+				<Table.Cell>{user.$id}</Table.Cell>
+				<!-- <Table.Cell class="text-right">
+					<Button size="icon" variant="ghost" on:click={(e) => e.preventDefault()}
+						><Ellipsis class="h-4 w-4" /></Button
+					>
+				</Table.Cell> -->
 			</Table.Row>
 		{/each}
 	</Table.Body>
