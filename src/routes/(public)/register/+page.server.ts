@@ -31,7 +31,7 @@ export const actions = {
 			redirect(302, `${base}/dashboard/overview`);
 		} catch (e) {
 			console.log(e);
-			throw new Error(e);
+			throw e;
 		}
 	}
 };

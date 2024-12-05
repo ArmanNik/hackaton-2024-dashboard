@@ -9,8 +9,6 @@
 	import github from '$lib/icons/github.svg';
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
-	import { base } from '$app/paths';
-	import { goto } from '$app/navigation';
 	import { toast } from 'svelte-sonner';
 
 	let { form }: { form: ActionData } = $props();
@@ -33,16 +31,14 @@
 				method="post"
 				class="grid gap-4"
 				use:enhance={({ submitter }) => {
+					const button = submitter as HTMLButtonElement;
 					if (submitter) {
-						submitter.disabled = true;
+						button.disabled = true;
 					}
 					return async ({ result, update }) => {
-						// console.log(result);
-						if (result?.type === 'success') {
-							await goto(`${base}/dashboard/overview`);
-						} else if (result?.type === 'error') {
+						if (result?.type === 'error') {
 							if (submitter) {
-								submitter.disabled = false;
+								button.disabled = false;
 							}
 							toast.error(result.error.message);
 						}

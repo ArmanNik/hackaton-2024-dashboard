@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import Separator from '$lib/components/ui/separator/separator.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
-	import Ellipsis from 'lucide-svelte/icons/ellipsis';
 	import Users from 'lucide-svelte/icons/users';
 
 	let { data } = $props();
@@ -25,7 +23,7 @@
 			<Card.Title class="text-sm font-medium">Total users</Card.Title>
 		</Card.Header>
 		<Card.Content>
-			<div class="text-2xl font-bold">45,231</div>
+			<div class="text-2xl font-bold">{data.users.total}</div>
 			<p class="text-xs text-muted-foreground">Unique users</p>
 		</Card.Content>
 	</Card.Root>
