@@ -16,7 +16,7 @@
 	<h1 class="text-lg font-semibold md:text-2xl">Users</h1>
 </div>
 
-<div class="grid gap-4 md:grid-cols-[200px_1fr]">
+<div class="grid gap-4 md:grid-cols-3">
 	<Card.Root>
 		<Card.Header class="flex flex-row items-center gap-2 space-y-0 pb-2">
 			<Users class="h-4 w-4 text-muted-foreground" />
@@ -28,22 +28,23 @@
 		</Card.Content>
 	</Card.Root>
 	<Card.Root>
-		<Card.Header class="flex flex-row items-center gap-2 pb-2">
+		<Card.Header class="flex flex-row items-center gap-2 space-y-0 pb-2">
 			<Users class="h-4 w-4 text-muted-foreground" />
 			<Card.Title class="text-sm font-medium">New users this month</Card.Title>
 		</Card.Header>
 		<Card.Content>
-			<div class="grid gap-2 md:grid-cols-[1fr_2px_2fr]">
-				<div>
-					<div class="text-2xl font-bold">+2350</div>
-					<p class="text-xs text-muted-foreground">+25% from last month</p>
-				</div>
-				<Separator decorative orientation="vertical" class="h-full" />
-				<div>
-					<div class="text-2xl font-bold">+2350</div>
-					<p class="text-xs text-muted-foreground">+25% from last month</p>
-				</div>
-			</div>
+			<div class="text-2xl font-bold">+23</div>
+			<p class="text-xs text-muted-foreground">+25% from last month</p>
+		</Card.Content>
+	</Card.Root>
+	<Card.Root>
+		<Card.Header class="flex flex-row items-center gap-2 space-y-0 pb-2">
+			<Users class="h-4 w-4 text-muted-foreground" />
+			<Card.Title class="text-sm font-medium">Active users</Card.Title>
+		</Card.Header>
+		<Card.Content>
+			<div class="text-2xl font-bold">+12</div>
+			<p class="text-xs text-muted-foreground">+12% from last month</p>
 		</Card.Content>
 	</Card.Root>
 </div>

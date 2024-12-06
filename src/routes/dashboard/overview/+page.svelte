@@ -9,18 +9,33 @@
 	import Download from 'lucide-svelte/icons/download';
 	import * as Tabs from '$lib/components/ui/tabs';
 	import { Progress } from '$lib/components/ui/progress';
+	import * as Table from '$lib/components/ui/table/index.js';
 
-	//IDs are at least 8 characters long
 	let backups: { id: string; size: string; timeDate: string }[] = [
 		{
-			id: '12345678',
+			id: 'd8092edf',
 			size: '1.2GB',
-			timeDate: '12:00 12/12/2021'
+			timeDate: '12:00 06/12/2024'
 		},
 		{
-			id: '12345679',
+			id: '2dfs9j2f',
+			size: '1.5GB',
+			timeDate: '15:30 01/11/2024'
+		},
+		{
+			id: '32982dj9',
 			size: '1.3GB',
-			timeDate: '12:00 12/12/2021'
+			timeDate: '02:23 12/01/2024'
+		},
+		{
+			id: 'fer3rtgg',
+			size: '2.3GB',
+			timeDate: '08:48 16/12/2023'
+		},
+		{
+			id: '1t335tgh',
+			size: '2.1GB',
+			timeDate: '16:22 30/06/2023'
 		}
 	];
 </script>
@@ -84,7 +99,7 @@
 	</Card.Root>
 </div>
 
-<section class="grid gap-4 md:grid-cols-[2fr_1fr]">
+<section class="grid gap-4 lg:grid-cols-[2fr_1fr]">
 	<div class="flex flex-col gap-2">
 		<div class="flex items-center">
 			<h2 class="text-xl">Usage</h2>
@@ -157,8 +172,24 @@
 		</div>
 		<Card.Root>
 			<Card.Content>
-				<div class="text-2xl font-bold">3456</div>
-				<p class="text-xs text-muted-foreground">Executions</p>
+				<Table.Root>
+					<Table.Header>
+						<Table.Row>
+							<Table.Head>ID</Table.Head>
+							<Table.Head>Size</Table.Head>
+							<Table.Head>Updated</Table.Head>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{#each backups as backup, i (i)}
+							<Table.Row>
+								<Table.Cell class="font-medium">{backup.id}</Table.Cell>
+								<Table.Cell>{backup.size}</Table.Cell>
+								<Table.Cell>{backup.timeDate}</Table.Cell>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
 			</Card.Content>
 		</Card.Root>
 	</div>
