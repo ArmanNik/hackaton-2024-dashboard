@@ -8,9 +8,16 @@
 	import Zap from 'lucide-svelte/icons/zap';
 	import House from 'lucide-svelte/icons/house';
 	import Users from 'lucide-svelte/icons/users';
+	import Menu from 'lucide-svelte/icons/menu';
 
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import * as Sheet from '$lib/components/ui/sheet';
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+
+	import Sun from 'lucide-svelte/icons/sun';
+	import Moon from 'lucide-svelte/icons/moon';
+	import { toggleMode } from 'mode-watcher';
 
 	const sidebarLinks = [
 		{ name: 'Overview', href: `${base}/dashboard/overview`, Icon: House },
@@ -53,18 +60,58 @@
 				</a>
 			{/each}
 		</nav>
+		<div class="md:hidden">
+			<Sheet.Root>
+				<Sheet.Trigger asChild let:builder>
+					<Button variant="outline" size="icon" class="shrink-0 md:hidden" builders={[builder]}>
+						<Menu class="h-5 w-5" />
+						<span class="sr-only">Toggle navigation menu</span>
+					</Button>
+				</Sheet.Trigger>
+				<Sheet.Content side="left" class="flex flex-col">
+					<nav class="mt-4 grid gap-2 text-lg font-medium">
+						{#each sidebarLinks as { name, href, Icon }}
+							<a
+								class:bg-muted={$page.url.pathname.includes(href)}
+								{href}
+								class="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+							>
+								<Icon class="h-4 w-4" />
+								{name}
+							</a>
+						{/each}
+					</nav>
+				</Sheet.Content>
+			</Sheet.Root>
+		</div>
 
-		<div class="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+		<div class="ml-auto flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger asChild let:builder>
 					<Button builders={[builder]} variant="secondary" size="icon" class="rounded-full">
+						<Users class="h-4 w-4" />
 						<span class="sr-only">Toggle user menu</span>
 					</Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content align="end">
 					<DropdownMenu.Label>My Account</DropdownMenu.Label>
 					<DropdownMenu.Separator />
-					<DropdownMenu.Item>Settings</DropdownMenu.Item>
+
+					<DropdownMenu.Item on:click={toggleMode}>
+						<span class="flex w-full items-center justify-between gap-2">
+							<span>Toggle theme</span>
+							<Sun
+								class="ml-auto inline-flex h-4 w-4 rotate-0 transition-all dark:hidden dark:-rotate-90"
+							/>
+
+							<Moon
+								class="ml-auto hidden h-4 w-4 rotate-90 transition-all dark:inline-flex dark:rotate-0"
+							/>
+						</span>
+					</DropdownMenu.Item>
+					<DropdownMenu.Item on:click={() => goto(`${base}/dashboard/settings`)}>
+						Settings
+					</DropdownMenu.Item>
 					<DropdownMenu.Item>Support</DropdownMenu.Item>
 					<DropdownMenu.Separator />
 					<DropdownMenu.Item>Logout</DropdownMenu.Item>
@@ -72,7 +119,6 @@
 			</DropdownMenu.Root>
 		</div>
 	</header>
-
 	<div class="grid h-full w-full flex-1 md:grid-cols-[220px_1fr]">
 		<div class="hidden border-r bg-background md:block">
 			<div class="flex h-full flex-col gap-2">
