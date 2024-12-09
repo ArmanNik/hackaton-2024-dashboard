@@ -1,6 +1,6 @@
 import { base } from '$app/paths';
 import { SESSION_COOKIE, createAdminClient } from '$lib/server/appwrite.js';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 
 export const actions = {
 	default: async ({ request, cookies }) => {
@@ -25,10 +25,10 @@ export const actions = {
 				secure: true,
 				path: '/'
 			});
-			redirect(302, `${base}/dashboard/overview`);
+			// redirect(307, `${base}/dashboard/overview`);
 		} catch (e) {
 			console.log(e);
-			throw e;
+			throw error(e.code, { message: e.response.message });
 		}
 	}
 };

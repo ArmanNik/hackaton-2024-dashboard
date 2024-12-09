@@ -1,6 +1,6 @@
 import { base } from '$app/paths';
 import { SESSION_COOKIE, createAdminClient } from '$lib/server/appwrite.js';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { ID } from 'node-appwrite';
 
 export const actions = {
@@ -8,7 +8,6 @@ export const actions = {
 		const form = await request.formData();
 		if (!form.has('email') || !form.has('password')) {
 			throw new Error('Email and password are required');
-			return;
 		}
 		const email = form.get('email') as string;
 		const password = form.get('password') as string;
@@ -28,10 +27,9 @@ export const actions = {
 				secure: true,
 				path: '/'
 			});
-			redirect(302, `${base}/dashboard/overview`);
 		} catch (e) {
 			console.log(e);
-			throw e;
+			throw error(e.code, { message: e.response.message });
 		}
 	}
 };

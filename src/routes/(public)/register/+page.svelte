@@ -9,6 +9,7 @@
 	import github from '$lib/icons/github.svg';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
+	import { goto } from '$app/navigation';
 </script>
 
 <svelte:head>
@@ -30,8 +31,9 @@
 						submitter.disabled = true;
 					}
 					return async ({ result, update }) => {
-						// console.log(result);
-						if (result?.type === 'error') {
+						if (result?.type === 'success') {
+							goto('/dashboard/overview');
+						} else if (result?.type === 'error') {
 							if (submitter) {
 								submitter.disabled = false;
 							}
@@ -43,11 +45,17 @@
 			>
 				<div class="grid gap-2">
 					<Label for="email">Email</Label>
-					<Input id="email" type="email" placeholder="Enter your email" required />
+					<Input id="email" type="email" name="email" placeholder="Enter your email" required />
 				</div>
 				<div class="grid gap-2">
 					<Label for="password">Password</Label>
-					<Input placeholder="Enter your password" id="password" type="password" required />
+					<Input
+						placeholder="Enter your password"
+						name="password"
+						id="password"
+						type="password"
+						required
+					/>
 				</div>
 				<Button type="submit" class="w-full">Sign up</Button>
 

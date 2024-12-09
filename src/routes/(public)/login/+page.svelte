@@ -10,6 +10,7 @@
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
 	import { toast } from 'svelte-sonner';
+	import { goto } from '$app/navigation';
 
 	let { form }: { form: ActionData } = $props();
 </script>
@@ -36,7 +37,9 @@
 						button.disabled = true;
 					}
 					return async ({ result, update }) => {
-						if (result?.type === 'error') {
+						if (result?.type === 'success') {
+							goto('/dashboard/overview');
+						} else if (result?.type === 'error') {
 							if (submitter) {
 								button.disabled = false;
 							}
