@@ -27,7 +27,13 @@
 			class=" flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6"
 		>
 			<a href={base} class="flex items-center gap-2 text-lg font-semibold md:text-base">
-				<img src={`${base}/favicon.png`} alt="logo" height="6" width="6" class="h-6 w-6" />
+				<img
+					src={`${base}/favicon.png`}
+					alt="logo"
+					height="6"
+					width="6"
+					class="h-6 w-6 dark:invert"
+				/>
 				<span>Acme Inc.</span>
 			</a>
 		</nav>
@@ -44,7 +50,7 @@
 				alt="placeholder"
 				width="1920"
 				height="1080"
-				class="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+				class="h-full w-full object-cover dark:grayscale"
 			/>
 		</div>
 		<div class="flex items-center justify-center py-12">

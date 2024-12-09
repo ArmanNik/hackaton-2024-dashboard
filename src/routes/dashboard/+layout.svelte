@@ -46,7 +46,13 @@
 			class="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6"
 		>
 			<a href={base} class="flex items-center gap-2 text-lg font-semibold md:text-base">
-				<img src={`${base}/favicon.png`} alt="logo" height="6" width="6" class="h-6 w-6" />
+				<img
+					src={`${base}/favicon.png`}
+					alt="logo"
+					height="6"
+					width="6"
+					class="h-6 w-6 dark:invert"
+				/>
 				<span class="sr-only">Acme Inc</span>
 			</a>
 
